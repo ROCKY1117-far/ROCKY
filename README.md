@@ -16,6 +16,14 @@ PC-first multiplayer story game. The current milestone implements room creation,
 
 The client uses `VITE_SERVER_URL` to connect to the Socket.IO server; it defaults to `http://localhost:3001`. The server exposes `/health` for hosting checks. For deployment, set `PORT`, `CLIENT_ORIGIN`, and `VITE_SERVER_URL` to the host-provided values.
 
+## Deploy the multiplayer server to Render
+
+The root `render.yaml` defines the Node web service, build and start commands, health check, and allowed Vercel origin. In Render, create a Blueprint from this repository and deploy the `rocky-game-server` service. Render supplies `PORT`; the service listens on that port.
+
+After the first deploy, copy the service's public `onrender.com` URL (without a trailing slash). In the Vercel project settings, add `VITE_SERVER_URL` with that URL for Production (and Preview if needed), then redeploy the frontend so the URL is included in its build. The server's `CLIENT_ORIGIN` must match the frontend's exact origin. If the Vercel domain changes, update `CLIENT_ORIGIN` in Render and redeploy the server.
+
+The free Render instance may sleep when idle, so the first connection after inactivity can take a short while. Room state is held in memory and is lost when the server restarts.
+
 ## Architecture
 
 - `client/`: React, TypeScript, and Vite desktop interface; Socket.IO client for live room updates.
