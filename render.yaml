@@ -3,7 +3,7 @@ services:
     name: rocky-game-server
     runtime: node
     plan: free
-    buildCommand: npm ci && npm run build --workspace @rocky/shared && npm run build --workspace @rocky/server
+    buildCommand: npm ci --include=dev && npm run build --workspace @rocky/shared && npm run build --workspace @rocky/server
     startCommand: npm run start --workspace @rocky/server
     healthCheckPath: /health
     envVars:
