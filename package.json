@@ -1,0 +1,19 @@
+{
+  "name": "rocky-the-journey",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:server\" \"npm:dev:client\"",
+    "dev:client": "npm run dev --workspace @rocky/client",
+    "dev:server": "npm run dev --workspace @rocky/server",
+    "build": "npm run build --workspace @rocky/shared && npm run build --workspace @rocky/server && npm run build --workspace @rocky/client",
+    "typecheck": "npm run typecheck --workspace @rocky/shared && npm run typecheck --workspace @rocky/server && npm run typecheck --workspace @rocky/client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
